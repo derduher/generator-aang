@@ -1,0 +1,37 @@
+{
+  "name": "generator-aang",
+  "version": "0.0.0",
+  "description": "Yeoman generator",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "derduher/generator-aang",
+  "author": {
+    "name": "Patrick Weygand",
+    "email": "",
+    "url": "https://github.com/derduher"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "generators/app",
+    "generators/model",
+    "generators/controller"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "change-case": "^2.3.0",
+    "yeoman-generator": "^0.19.0",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "fs-extra": "^0.26.0",
+    "mocha": "*"
+  },
+  "standard": {
+    "globals": ["before", "describe", "it"]
+  }
+}
