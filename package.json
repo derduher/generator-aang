@@ -22,16 +22,22 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "chalk": "^1.0.0",
+    "chalk": "^1.1.1",
     "change-case": "^2.3.0",
     "yeoman-generator": "^0.19.0",
     "yosay": "^1.0.2"
   },
   "devDependencies": {
+    "babel-eslint": "^4.1.6",
     "fs-extra": "^0.26.0",
     "mocha": "*"
   },
   "standard": {
-    "globals": ["before", "describe", "it"]
+    "parser": "babel-eslint",
+    "globals": [
+      "before",
+      "describe",
+      "it"
+    ]
   }
 }
