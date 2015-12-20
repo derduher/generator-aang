@@ -1,21 +1,22 @@
-'use strict';
-var yeoman = require('yeoman-generator');
+'use strict'
+var Aang = require('../../lib/aang/index')
 
-module.exports = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.argument('name', {
-      required: true,
-      type: String,
-      desc: 'The subgenerator name'
-    });
+module.exports = Aang.extend({
+  constructor: function () {
+    Aang.apply(this, arguments)
 
-    this.log('You called the Aang subgenerator with the argument ' + this.name + '.');
+    this._normalizeName('Controller')
+  },
+
+  prompting: function () {
+    Aang.prototype.prompting.apply(this, arguments)
   },
 
   writing: function () {
-    this.fs.copy(
-      this.templatePath('somefile.js'),
-      this.destinationPath('somefile.js')
-    );
+    this.fs.copyTpl(
+      this.templatePath('controller.es6'),
+      this.destinationPath(this.options.modulePath + 'controllers/' + this.name + '.es6'),
+      {moduleName: this.options.module, controllerName: this.name}
+    )
   }
-});
+})
