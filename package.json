@@ -16,7 +16,8 @@
   "files": [
     "generators/app",
     "generators/model",
-    "generators/controller"
+    "generators/controller",
+    "generators/controller-test"
   ],
   "keywords": [
     "yeoman-generator"
