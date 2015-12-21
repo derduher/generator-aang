@@ -4,6 +4,9 @@ var path = require('path')
 var fs = require('fs-extra')
 var assert = require('yeoman-generator').assert
 var helpers = require('yeoman-generator').test
+var deps = [
+  [helpers.createDummyGenerator(), 'aang:model-test']
+]
 
 describe('Aang:generators/model', function () {
   describe('yo fs name --module com.project', function () {
@@ -12,6 +15,7 @@ describe('Aang:generators/model', function () {
         .inTmpDir(function (dir) {
           fs.copySync(path.join(__dirname, '../templates/common'), dir)
         })
+        .withGenerators(deps)
         .withArguments('name')
         .withPrompts({module: 'com.project'})
         .withOptions({ skipInstall: true, force: true })
@@ -36,6 +40,7 @@ describe('Aang:generators/model', function () {
           fs.copySync(path.join(__dirname, '../templates/common'), dir)
           console.log(dir)
         })
+        .withGenerators(deps)
         .withArguments('NameModel')
         .withOptions({ module: 'com.project.module' })
         .on('end', done)

@@ -28,6 +28,10 @@ describe('Aang:lib/aang', function () {
     assert.equal(options.modulePath, 'app/assets/javascripts/')
   })
 
+  it('sets test path to rootTestPath when the module passed is the rootModule', function () {
+    assert.equal(options.testPath, 'spec/js/')
+  })
+
   it('sets module path to a sub dir of rootPath when passed a module', function () {
     options.modulePath = ''
     options.module = 'com.project.sub.module'
@@ -43,8 +47,8 @@ describe('Aang:lib/aang', function () {
     assert.equal(options.rootModulePath, 'app/assets/javascripts')
   })
 
-  it('defaults testPath to the config value', function () {
-    assert.equal(options.testPath, 'spec/js')
+  it('defaults rootTestPath to the config value', function () {
+    assert.equal(options.rootTestPath, 'spec/js')
   })
 
   describe('_normalizeName', function () {

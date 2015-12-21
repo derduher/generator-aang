@@ -13,11 +13,11 @@ module.exports = Aang.extend({
   },
 
   writing: function () {
+    console.log(this.options.testPath)
     this.fs.copyTpl(
-      this.templatePath('controller.es6'),
-      this.destinationPath(this.options.modulePath + 'controllers/' + this.name + '.es6'),
+      this.templatePath('controller.js'),
+      this.destinationPath(this.options.testPath + 'controllers/' + this.name + '.spec.js'),
       {moduleName: this.options.module, controllerName: this.name}
     )
-    this.composeWith('aang:controller-test', this)
   }
 })

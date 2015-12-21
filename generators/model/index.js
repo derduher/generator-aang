@@ -18,5 +18,7 @@ module.exports = Aang.extend({
       this.destinationPath(this.options.modulePath + 'models/' + this.name + '.es6'),
       {moduleName: this.options.module, modelName: this.name}
     )
+
+    this.composeWith('aang:model-test', this)
   }
 })
