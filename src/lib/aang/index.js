@@ -1,9 +1,9 @@
 'use strict'
-var yeoman = require('yeoman-generator')
 var changeCase = require('change-case')
+import { NamedBase } from 'yeoman-generator'
 
-module.exports = yeoman.generators.NamedBase.extend({
-  _initConfig: function () {
+export default class Aang extends NamedBase {
+  _initConfig () {
     // pass defaults
     // TODO: what if not defined
     var pkgjson = this.fs.readJSON(this.destinationPath('package.json'))
@@ -11,9 +11,10 @@ module.exports = yeoman.generators.NamedBase.extend({
     var defaults = pkgjson.config['generator-aang']
     this.config.defaults(defaults)
     this.config.save()
-  },
-  _normalizeName: function (suffix, instance) {
+  }
+  _normalizeName (suffix, instance) {
     var origArg = this.name
+    console.log('name', this.name)
 
     if (instance) {
       this.name = this._toInstanceCase(this.name)
@@ -26,21 +27,21 @@ module.exports = yeoman.generators.NamedBase.extend({
     if (origArg !== this.name) {
       this.log('Coerced to ' + this.name + '.')
     }
-  },
-  _toClassCase: function (name) {
+  }
+  _toClassCase (name) {
     return changeCase.pascalCase(changeCase.sentenceCase(name))
-  },
-  _toInstanceCase: function (word) {
+  }
+  _toInstanceCase (word) {
     return changeCase.camelCase(changeCase.sentenceCase(word))
-  },
-  _ensureSuffix: function (word, suffix) {
+  }
+  _ensureSuffix (word, suffix) {
     let suffixPos = word.lastIndexOf(suffix)
     if (suffixPos === -1 || suffixPos !== word.length - suffix.length) {
       word += suffix
     }
     return word
-  },
-  _setModulePath: function () {
+  }
+  _setModulePath () {
     if (!this.options.modulePath) {
       var deRooted
       if (this.options.module.indexOf(this.options.rootModule) === 0) {
@@ -61,9 +62,12 @@ module.exports = yeoman.generators.NamedBase.extend({
     if (this.options.testPath[this.options.testPath.length - 1] !== '/') {
       this.options.testPath += '/'
     }
-  },
-  constructor: function () {
-    yeoman.generators.NamedBase.apply(this, arguments)
+  }
+
+  constructor (args, options) {
+    super(args, options)
+    // Configure Lodash templating so it ignores interpolation markers in
+    // ES6 template strings.
     this._initConfig()
 
     this.option('module', {
@@ -99,9 +103,9 @@ module.exports = yeoman.generators.NamedBase.extend({
       desc: 'override to test option\'s generated path',
       type: String
     })
-  },
+  }
 
-  prompting: function () {
+  prompting () {
     var done = this.async()
     if (!this.options.module) {
       this.prompt({
@@ -119,4 +123,4 @@ module.exports = yeoman.generators.NamedBase.extend({
       done()
     }
   }
-})
+}

@@ -1,18 +1,19 @@
 'use strict'
-var Aang = require('../../lib/aang/index')
 
-module.exports = Aang.extend({
-  constructor: function () {
-    Aang.apply(this, arguments)
+import Aang from '../../lib/aang/index'
+
+export default class Model extends Aang {
+  constructor (...args) {
+    super(...args)
 
     this._normalizeName('Model')
-  },
+  }
 
-  prompting: function () {
-    Aang.prototype.prompting.apply(this, arguments)
-  },
+  prompting (...ang) {
+    super.prompting(...ang)
+  }
 
-  writing: function () {
+  writing () {
     this.fs.copyTpl(
       this.templatePath('model.es6'),
       this.destinationPath(this.options.modulePath + 'models/' + this.name + '.es6'),
@@ -21,4 +22,4 @@ module.exports = Aang.extend({
 
     this.composeWith('aang:model-test', this)
   }
-})
+}
