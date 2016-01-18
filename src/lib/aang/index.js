@@ -1,5 +1,5 @@
 'use strict'
-var changeCase = require('change-case')
+const changeCase = require('change-case')
 import { NamedBase } from 'yeoman-generator'
 
 export default class Aang extends NamedBase {
@@ -14,7 +14,6 @@ export default class Aang extends NamedBase {
   }
   _normalizeName (suffix, instance) {
     var origArg = this.name
-    console.log('name', this.name)
 
     if (instance) {
       this.name = this._toInstanceCase(this.name)
