@@ -24,13 +24,13 @@ describe('Aang:generators/controller', function () {
 
     it('creates the controller in the base module location', function () {
       assert.file([
-        'app/assets/javascripts/controllers/NameController.es6'
+        'app/assets/javascripts/controllers/NameController.js'
       ])
     })
 
     it('has file name, module filled out', function () {
-      assert.fileContent('app/assets/javascripts/controllers/NameController.es6', /angular\.module\('com\.project/)
-      assert.fileContent('app/assets/javascripts/controllers/NameController.es6', /controller\('NameController/)
+      assert.fileContent('app/assets/javascripts/controllers/NameController.js', /angular\.module\('com\.project/)
+      assert.fileContent('app/assets/javascripts/controllers/NameController.js', /controller\('NameController/)
     })
   })
 
@@ -43,19 +43,19 @@ describe('Aang:generators/controller', function () {
       })
       .withGenerators(deps)
       .withArguments('NameController')
-      .withOptions({ module: 'com.project.module' })
+      .withOptions({ module: 'com.project.module', sourceExtension: 'foobar' })
       .on('end', done)
     })
 
     it('creates the file in a subfolder of the root', function () {
       assert.file([
-        'app/assets/javascripts/module/controllers/NameController.es6'
+        'app/assets/javascripts/module/controllers/NameController.foobar'
       ])
     })
 
     it('has file name, module filled out', function () {
-      assert.fileContent('app/assets/javascripts/module/controllers/NameController.es6', /angular\.module\('com\.project.module/)
-      assert.fileContent('app/assets/javascripts/module/controllers/NameController.es6', /controller\('NameController/)
+      assert.fileContent('app/assets/javascripts/module/controllers/NameController.foobar', /angular\.module\('com\.project.module/)
+      assert.fileContent('app/assets/javascripts/module/controllers/NameController.foobar', /controller\('NameController/)
     })
   })
 })

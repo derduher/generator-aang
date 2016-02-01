@@ -14,11 +14,7 @@ export default class Model extends Aang {
   }
 
   writing () {
-    this.fs.copyTpl(
-      this.templatePath('model.es6'),
-      this.destinationPath(this.options.modulePath + 'models/' + this.name + '.es6'),
-      {moduleName: this.options.module, modelName: this.name}
-    )
+    this._createSrc('model.es6', 'models')
 
     this.composeWith('aang:model-test', this)
   }

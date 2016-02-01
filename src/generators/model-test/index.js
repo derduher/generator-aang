@@ -13,10 +13,6 @@ export default class ModelTest extends Aang {
   }
 
   writing () {
-    this.fs.copyTpl(
-      this.templatePath('model.js.tmpl'),
-      this.destinationPath(this.options.testPath + 'models/' + this.name + '.spec.js'),
-      {moduleName: this.options.module, modelName: this.name}
-    )
+    this._createTest('model.js.tmpl', 'models')
   }
 }

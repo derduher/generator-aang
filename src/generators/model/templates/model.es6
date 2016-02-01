@@ -1,11 +1,11 @@
 'use strict'
 
-angular.module('<%= moduleName %>').factory('<%= modelName %>', [
+angular.module('<%= moduleName %>').factory('<%= name %>', [
   'AppBaseModel',
   function (
     AppBaseModel
   ) {
-    return class <%= modelName %> extends AppBaseModel {
+    return class <%= name %> extends AppBaseModel {
     }
   }
 ])

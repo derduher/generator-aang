@@ -1,11 +1,11 @@
 'use strict'
 
-describe('<%= controllerName %>', function () {
+describe('<%= name %>', function () {
   beforeEach(angular.mock.module('<%= moduleName %>'))
   beforeEach(inject($injector => {
     this.$controller = $injector.get('$controller')
     this.controller = this.$controller(
-      '<%= controllerName %>',
+      '<%= name %>',
       {'$scope': {}},
       // for attaching properties normally bound by the directive bindToController
       {foo: 'foo', watching: 'bar'}

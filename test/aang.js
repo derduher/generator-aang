@@ -51,6 +51,18 @@ describe('Aang:lib/aang', function () {
     assert.equal(options.rootTestPath, 'spec/js')
   })
 
+  it('defaults sourceExtension to the config value', function () {
+    assert.equal(options.sourceExtension, 'js')
+  })
+
+  it('defaults unitExtension to the config value', function () {
+    assert.equal(options.unitExtension, 'spec.js')
+  })
+
+  it('defaults e2eExtension to the config value', function () {
+    assert.equal(options.e2eExtension, 'spec.js')
+  })
+
   describe('_normalizeName', function () {
     it('Class cases generator.name by default and appends the passed suffix', function () {
       generator.name = 'bar'
@@ -112,6 +124,39 @@ describe('Aang:lib/aang', function () {
 
     it('appends a suffix if not at the end', function () {
       assert.equal(generator._ensureSuffix('SuffixClass', 'Suffix'), 'SuffixClassSuffix')
+    })
+  })
+
+  // TODO Port over from integration tests
+  describe('_createSrc', function () {
+    it('creates the files at src with correct path, name, module', function (done) {
+      generator.name = 'foo'
+      options.modulePath = 'app/fizz/'
+      options.sourceExtension = 'js'
+
+      generator._createSrc('../../../generators/controller/templates/controller.es6', 'controllers')
+      generator.env.runLoop.on('end', function () {
+        assert.fileContent('app/fizz/controllers/foo.js', /angular\.module\('com\.project/)
+        assert.fileContent('app/fizz/controllers/foo.js', /controller\('foo/)
+        done()
+      })
+    })
+  })
+
+  // TODO
+  describe('_createTest', function () {
+    it('creates the files at spec with correct path, name, module', function (done) {
+      generator.name = 'foo'
+      options.testPath = 'spec/app/fizz/'
+      options.unitExtension = 'js'
+
+      generator._createTest('../../../generators/controller-test/templates/controller.js.tmpl', 'controllers')
+
+      generator.env.runLoop.on('end', function () {
+        assert.fileContent('spec/app/fizz/controllers/foo.js', /angular\.mock\.module\('com\.project/)
+        assert.fileContent('spec/app/fizz/controllers/foo.js', /foo/)
+        done()
+      })
     })
   })
 
