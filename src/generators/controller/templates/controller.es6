@@ -1,6 +1,6 @@
 'use strict'
-angular.module('<%= moduleName %>').controller('<%= controllerName %>', [
-  class <%= controllerName %> {
+angular.module('<%= moduleName %>').controller('<%= name %>', [
+  class <%= name %> {
     constructor (
     ) {
     }

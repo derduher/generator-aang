@@ -1,10 +1,10 @@
 'use strict'
 
-describe('Model <%= modelName %>', function () {
+describe('Model <%= name %>', function () {
   beforeEach(angular.mock.module('<%= moduleName %>'))
 
   beforeEach(inject(($injector) => {
-    this.Model = $injector.get('<%= modelName %>')
+    this.Model = $injector.get('<%= name %>')
     this.model = new this.Model()
   }))
 

@@ -51,6 +51,18 @@ describe('Aang:lib/aang', function () {
     assert.equal(options.rootTestPath, 'spec/js')
   })
 
+  it('defaults sourceExtension to the config value', function () {
+    assert.equal(options.sourceExtension, 'js')
+  })
+
+  it('defaults unitExtension to the config value', function () {
+    assert.equal(options.unitExtension, 'spec.js')
+  })
+
+  it('defaults e2eExtension to the config value', function () {
+    assert.equal(options.e2eExtension, 'spec.js')
+  })
+
   describe('_normalizeName', function () {
     it('Class cases generator.name by default and appends the passed suffix', function () {
       generator.name = 'bar'
@@ -112,6 +124,20 @@ describe('Aang:lib/aang', function () {
 
     it('appends a suffix if not at the end', function () {
       assert.equal(generator._ensureSuffix('SuffixClass', 'Suffix'), 'SuffixClassSuffix')
+    })
+  })
+
+  // TODO Port over from integration tests
+  describe('_createSrc', function () {
+    it('', function () {
+
+    })
+  })
+
+  // TODO
+  describe('_createTest', function () {
+    it('', function () {
+
     })
   })
 

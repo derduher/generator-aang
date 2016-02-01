@@ -63,6 +63,22 @@ export default class Aang extends NamedBase {
     }
   }
 
+  _createSrc (src, path) {
+    this.fs.copyTpl(
+      this.templatePath(src),
+      this.destinationPath(`${this.options.modulePath}${path}/${this.name}.${this.options.sourceExtension}`),
+      {moduleName: this.options.module, name: this.name}
+    )
+  }
+
+  _createTest (test, path) {
+    this.fs.copyTpl(
+      this.templatePath(test),
+      this.destinationPath(`${this.options.testPath}${path}/${this.name}.${this.options.unitExtension}`),
+      {moduleName: this.options.module, name: this.name}
+    )
+  }
+
   constructor (args, options) {
     super(args, options)
     // Configure Lodash templating so it ignores interpolation markers in

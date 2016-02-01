@@ -22,7 +22,7 @@
         "e2e": "spec/e2e"
       },
       "extensions": {
-        "source": "es6",
+        "source": "js",
         "e2e": "spec.js",
         "unit": "spec.js"
       }
