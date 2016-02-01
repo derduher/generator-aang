@@ -15,7 +15,7 @@ export default class ControllerTest extends Aang {
   writing () {
     this.fs.copyTpl(
       this.templatePath('controller.js.tmpl'),
-      this.destinationPath(this.options.testPath + 'controllers/' + this.name + '.spec.js'),
+      this.destinationPath(`${this.options.testPath}controllers/${this.name}.${this.options.unitExtension}`),
       {moduleName: this.options.module, controllerName: this.name}
     )
   }

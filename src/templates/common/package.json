@@ -20,6 +20,11 @@
         "styles": "app/assets/stylesheets",
         "specs": "spec/js",
         "e2e": "spec/e2e"
+      },
+      "extensions": {
+        "source": "es6",
+        "e2e": "spec.js",
+        "unit": "spec.js"
       }
     }
   }

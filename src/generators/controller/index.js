@@ -15,7 +15,7 @@ export default class Controller extends Aang {
   writing () {
     this.fs.copyTpl(
       this.templatePath('controller.es6'),
-      this.destinationPath(this.options.modulePath + 'controllers/' + this.name + '.es6'),
+      this.destinationPath(`${this.options.modulePath}controllers/${this.name}.${this.options.sourceExtension}`),
       {moduleName: this.options.module, controllerName: this.name}
     )
     this.composeWith('aang:controller-test', this)

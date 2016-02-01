@@ -102,6 +102,24 @@ export default class Aang extends NamedBase {
       desc: 'override to test option\'s generated path',
       type: String
     })
+
+    this.option('sourceExtension', {
+      desc: 'override to package default extension for source',
+      type: String,
+      defaults: this.config.get('extensions').source
+    })
+
+    this.option('unitExtension', {
+      desc: 'override to package default extension for unit tests',
+      type: String,
+      defaults: this.config.get('extensions').unit
+    })
+
+    this.option('e2eExtension', {
+      desc: 'override to package default extension for e2e tests',
+      type: String,
+      defaults: this.config.get('extensions').e2e
+    })
   }
 
   prompting () {
