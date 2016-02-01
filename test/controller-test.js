@@ -34,7 +34,6 @@ describe('Aang:generators/controller-test', function () {
       helpers.run(path.join(__dirname, '../generators/controller-test'))
       .inTmpDir(function (dir) {
         fs.copySync(path.join(__dirname, '../templates/common'), dir)
-        console.log(dir)
       })
       .withArguments('NameController')
       .withOptions({ module: 'com.project.module' })
