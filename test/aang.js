@@ -14,6 +14,7 @@ describe('Aang:lib/aang', function () {
     runContext = helpers.run(path.join(__dirname, '../lib/aang'))
       .inTmpDir(function (dir) {
         fs.copySync(path.join(__dirname, '../templates/common'), dir)
+        // console.log(dir)
       })
       .withArguments('name')
       .withPrompts({module: 'com.project'})
@@ -75,6 +76,19 @@ describe('Aang:lib/aang', function () {
       generator._normalizeName('Foo', true)
       assert.equal(generator.name, 'barFoo')
     })
+
+    it('transforms the file name if asked', function () {
+      generator.options.fileCase = 'paramCase'
+      generator.name = 'Bar'
+      generator._normalizeName('Foo', true)
+      assert.equal(generator.fileName, 'bar-foo')
+    })
+
+    it('uses the same casing as the name by default', function () {
+      generator.name = 'Bar'
+      generator._normalizeName('Foo', true)
+      assert.equal(generator.fileName, 'barFoo')
+    })
   })
 
   describe('_toClassCase', function () {
@@ -131,6 +145,7 @@ describe('Aang:lib/aang', function () {
   describe('_createSrc', function () {
     it('creates the files at src with correct path, name, module', function (done) {
       generator.name = 'foo'
+      generator.fileName = generator.name
       options.modulePath = 'app/fizz/'
       options.sourceExtension = 'js'
 
@@ -141,12 +156,27 @@ describe('Aang:lib/aang', function () {
         done()
       })
     })
+
+    it('uses fileCase option to transform the file prior to writing', function (done) {
+      generator.name = 'fooBar'
+      generator.fileName = 'foo-bar'
+      options.modulePath = 'app/fizz/'
+      options.sourceExtension = 'js'
+
+      generator._createSrc('../../../generators/controller/templates/controller.es6', 'controllers')
+      generator.env.runLoop.on('end', function () {
+        assert.fileContent('app/fizz/controllers/foo-bar.js', /angular\.module\('com\.project/)
+        assert.fileContent('app/fizz/controllers/foo-bar.js', /controller\('foo/)
+        done()
+      })
+    })
   })
 
   // TODO
   describe('_createTest', function () {
     it('creates the files at spec with correct path, name, module', function (done) {
       generator.name = 'foo'
+      generator.fileName = 'foo'
       options.testPath = 'spec/app/fizz/'
       options.unitExtension = 'js'
 
@@ -155,6 +185,21 @@ describe('Aang:lib/aang', function () {
       generator.env.runLoop.on('end', function () {
         assert.fileContent('spec/app/fizz/controllers/foo.js', /angular\.mock\.module\('com\.project/)
         assert.fileContent('spec/app/fizz/controllers/foo.js', /foo/)
+        done()
+      })
+    })
+
+    it('uses fileCase option to transform the file prior to writing', function (done) {
+      generator.name = 'fooBar'
+      generator.fileName = 'foo-bar'
+      options.testPath = 'spec/app/fizz/'
+      options.unitExtension = 'js'
+
+      generator._createTest('../../../generators/controller-test/templates/controller.js.tmpl', 'controllers')
+
+      generator.env.runLoop.on('end', function () {
+        assert.fileContent('spec/app/fizz/controllers/foo-bar.js', /angular\.mock\.module\('com\.project/)
+        assert.fileContent('spec/app/fizz/controllers/foo-bar.js', /foo/)
         done()
       })
     })
