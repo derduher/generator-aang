@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/derduher/generator-aang.png?label=ready&title=Ready)](https://waffle.io/derduher/generator-aang)
 # generator-aang [![Build Status](https://secure.travis-ci.org/derduher/generator-aang.png?branch=master)](https://travis-ci.org/derduher/generator-aang)
 
 > [Yeoman](http://yeoman.io) generator
