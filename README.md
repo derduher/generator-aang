@@ -61,6 +61,16 @@ Aang has some default configs but maybe your team has some patterns in place you
     }
   }
 ```
+ - **rootModule** Your applications main module, you should fill this out - aang will assume that new controllers for instance should go directly in the path defined by scripts so aang:controller Foo will generate in app/assets/javascripts/controllers/Foo.js. This module can be overriden in the command line so that modules such as com.project.video go as a subfolder of app/assets/javascripts/video
+ - **fileCase** By default all files use the same name as their component name. eg. FooController will be FooController.js. However macs have case insensitive file structure so this can sometimes cause problems when renaming things. fileCase is provided as a way of specifying the preferred file casing eg. paramCase to get foo-controller.js. To see a list of all available options see the methods provided by [change-case](https://github.com/blakeembrey/change-case#usage)
+ - **separators** Not currently used
+ - **paths.scripts** Where should generated javascript go for the rootModule?
+ - **paths.styles** Where should generated stylesheets go?
+ - **paths.specs** Where should unit tests go for the root module?
+ - **paths.e2e** Where should e2e tests go?
+ - **extensions.source** do javascript files in js or es6 or .es6.js
+ - **extensions.e2e** do e2e tests have the file extension js or spec.js
+ - **extensions.unit** do unit tests have the file extension spec.js, js or .es6
 
 ### Components
 
@@ -71,7 +81,7 @@ Aang comes with a list of components you can generate
 
 #### Controllers
 
-`yo aang:controller`
+`yo aang:controller myController` - generates MyController at rootpath/controllers/MyController.js along with an associated unit test in rootTestPath/controllers/MyConroller.spec.js
 
 #### Models
 
