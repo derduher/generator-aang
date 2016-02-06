@@ -11,6 +11,7 @@
   "config": {
     "generator-aang": {
       "rootModule": "com.project",
+      "fileCase": "name",
       "separators": {
         "pre": "#==",
         "post": "#/="

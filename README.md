@@ -29,11 +29,53 @@ To install generator-aang from npm, run:
 npm install -g generator-aang
 ```
 
-Finally, initiate the generator:
+### Yeoman Aang
 
-```bash
-yo aang
+Yeoman Aang is the last avatar and the bender of all things angular. Aang doesn't currently tell you 
+how you should do things he just asks you what way you do things and makes you and
+your team be more consistent.
+
+#### Getting Started
+
+Aang has some default configs but maybe your team has some patterns in place you'd like to continue following
+```json
+  "config": {
+    "generator-aang": {
+      "rootModule": "com.project",
+      "fileCase": "name",
+      "separators": {
+        "pre": "#==",
+        "post": "#/="
+      },
+      "paths": {
+        "scripts": "app/assets/javascripts",
+        "styles": "app/assets/stylesheets",
+        "specs": "spec/js",
+        "e2e": "spec/e2e"
+      },
+      "extensions": {
+        "source": "js",
+        "e2e": "spec.js",
+        "unit": "spec.js"
+      }
+    }
+  }
 ```
+
+### Components
+
+Aang comes with a list of components you can generate
+
+1. [controllers](#controllers)
+1. [models](#models)
+
+#### Controllers
+
+`yo aang:controller`
+
+#### Models
+
+`yo aang:model`
 
 ### Getting To Know Yeoman
 
