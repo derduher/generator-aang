@@ -23,6 +23,12 @@ export default class Aang extends NamedBase {
 
     this.name = this._ensureSuffix(this.name, suffix)
 
+    if (this.options.fileCase !== 'name' && changeCase[this.options.fileCase]) {
+      this.fileName = changeCase[this.options.fileCase](this.name)
+    } else {
+      this.fileName = this.name
+    }
+
     if (origArg !== this.name) {
       this.log('Coerced to ' + this.name + '.')
     }
@@ -66,7 +72,7 @@ export default class Aang extends NamedBase {
   _createSrc (src, path) {
     this.fs.copyTpl(
       this.templatePath(src),
-      this.destinationPath(`${this.options.modulePath}${path}/${this.name}.${this.options.sourceExtension}`),
+      this.destinationPath(`${this.options.modulePath}${path}/${this.fileName}.${this.options.sourceExtension}`),
       {moduleName: this.options.module, name: this.name}
     )
   }
@@ -74,7 +80,7 @@ export default class Aang extends NamedBase {
   _createTest (test, path) {
     this.fs.copyTpl(
       this.templatePath(test),
-      this.destinationPath(`${this.options.testPath}${path}/${this.name}.${this.options.unitExtension}`),
+      this.destinationPath(`${this.options.testPath}${path}/${this.fileName}.${this.options.unitExtension}`),
       {moduleName: this.options.module, name: this.name}
     )
   }
@@ -135,6 +141,12 @@ export default class Aang extends NamedBase {
       desc: 'override to package default extension for e2e tests',
       type: String,
       defaults: this.config.get('extensions').e2e
+    })
+
+    this.option('fileCase', {
+      desc: 'override to package default extension for e2e tests',
+      type: String,
+      defaults: this.config.get('fileCase')
     })
   }
 
