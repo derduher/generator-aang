@@ -6,7 +6,7 @@ export default class Model extends Aang {
   constructor (...args) {
     super(...args)
 
-    this._normalizeName('Model')
+    this.suffix = 'Model'
   }
 
   prompting (...ang) {

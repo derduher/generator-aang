@@ -127,13 +127,11 @@ export default class Aang extends NamedBase {
 
     this.option('fileCase', {
       desc: 'override to package default extension for e2e tests',
-      type: String,
-      defaults: this.config.get('fileCase')
+      type: String
     })
   }
 
   prompting () {
-    console.log('promptinglib')
     const done = this.async()
     let prompts = [
       {
@@ -152,6 +150,12 @@ export default class Aang extends NamedBase {
         type: 'input',
         name: 'rootTestPath',
         message: 'what is the path to the root of your unit tests',
+        store: true
+      },
+      {
+        type: 'input',
+        name: 'fileCase',
+        message: 'what casing would you like your files (camelCase (default), pascalCase, snakeCase, paramCase)',
         store: true
       },
       {
@@ -175,36 +179,50 @@ export default class Aang extends NamedBase {
     ]
 
     prompts = prompts.filter(opt => {
-      if (this.config.get(opt.name) && !this.options[opt.name]) {
-        this.options[opt.name] = this.config.get(opt.name)
+      if (this.config.get(opt.name)) {
+        if (!this.options[opt.name]) {
+          this.options[opt.name] = this.config.get(opt.name)
+        }
         return false
       }
       return true
     })
 
+    let p
     if (prompts.length) {
-      this.prompt(prompts, answers => {
+      p = this.promptWithPromise(prompts).then(answers => {
         for (let opt in answers) {
           this.options[opt] = answers[opt]
         }
         this.config.set(answers)
-
-        if (!this.options.module) {
-          this.prompt({
-            type: 'input',
-            name: 'module',
-            message: 'module you would like to install this under',
-            store: true
-          }, answers => {
-            this.options.module = answers.module
-            this._setModulePath()
-            done()
-          })
-        } else {
-          this._setModulePath()
-          done()
-        }
       })
+    } else {
+      p = Promise.resolve()
     }
+
+    p.then(() => {
+      if (!this.options.module) {
+        return this.promptWithPromise({
+          type: 'input',
+          name: 'module',
+          message: 'module you would like to install this under',
+          store: true
+        }).then(answers => {
+          this.options.module = answers.module
+        })
+      }
+    }).then(() => {
+      this._normalizeName(this.suffix)
+      this._setModulePath()
+      done()
+    })
+  }
+
+  promptWithPromise (prompts) {
+    return new Promise(resolve => {
+      this.prompt(prompts, answers => {
+        resolve(answers)
+      })
+    })
   }
 }

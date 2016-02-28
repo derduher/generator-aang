@@ -20,13 +20,13 @@ describe('Aang:generators/controller-test', function () {
 
     it('creates the controller in the base module location', function () {
       assert.file([
-        'spec/js/controllers/NameController.spec.js'
+        'spec/js/controllers/name_controller.spec.js'
       ])
     })
 
     it('has file name, module filled out', function () {
-      assert.fileContent('spec/js/controllers/NameController.spec.js', /angular\.mock\.module\('com\.project/)
-      assert.fileContent('spec/js/controllers/NameController.spec.js', /NameController/)
+      assert.fileContent('spec/js/controllers/name_controller.spec.js', /angular\.mock\.module\('com\.project/)
+      assert.fileContent('spec/js/controllers/name_controller.spec.js', /NameController/)
     })
   })
   describe('yo fs \'name controller\' --module com.project.module', function () {
@@ -42,12 +42,12 @@ describe('Aang:generators/controller-test', function () {
 
     it('creates the file in a subfolder of the root', function () {
       assert.file([
-        'spec/js/module/controllers/NameController.spec.js'
+        'spec/js/module/controllers/name_controller.spec.js'
       ])
     })
 
     it('has module name filled out', function () {
-      assert.fileContent('spec/js/module/controllers/NameController.spec.js', /angular\.mock\.module\('com\.project.module/)
+      assert.fileContent('spec/js/module/controllers/name_controller.spec.js', /angular\.mock\.module\('com\.project.module/)
     })
   })
 })
