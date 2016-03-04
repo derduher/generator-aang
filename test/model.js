@@ -24,13 +24,13 @@ describe('Aang:generators/model', function () {
 
     it('creates the model in the base module location', function () {
       assert.file([
-        'app/assets/javascripts/models/NameModel.js'
+        'app/assets/javascripts/models/name_model.js'
       ])
     })
 
     it('has file name, module filled out', function () {
-      assert.fileContent('app/assets/javascripts/models/NameModel.js', /angular\.module\('com\.project/)
-      assert.fileContent('app/assets/javascripts/models/NameModel.js', /factory\('NameModel/)
+      assert.fileContent('app/assets/javascripts/models/name_model.js', /angular\.module\('com\.project/)
+      assert.fileContent('app/assets/javascripts/models/name_model.js', /factory\('NameModel/)
     })
   })
   describe('yo fs \'name model\' --module com.project.module', function () {
@@ -38,7 +38,6 @@ describe('Aang:generators/model', function () {
       helpers.run(path.join(__dirname, '../generators/model'))
         .inTmpDir(function (dir) {
           fs.copySync(path.join(__dirname, '../templates/common'), dir)
-          console.log(dir)
         })
         .withGenerators(deps)
         .withArguments('NameModel')
@@ -48,13 +47,13 @@ describe('Aang:generators/model', function () {
 
     it('creates the file in a subfolder of the root', function () {
       assert.file([
-        'app/assets/javascripts/module/models/NameModel.js'
+        'app/assets/javascripts/module/models/name_model.js'
       ])
     })
 
     it('has file name, module filled out', function () {
-      assert.fileContent('app/assets/javascripts/module/models/NameModel.js', /angular\.module\('com\.project.module/)
-      assert.fileContent('app/assets/javascripts/module/models/NameModel.js', /factory\('NameModel/)
+      assert.fileContent('app/assets/javascripts/module/models/name_model.js', /angular\.module\('com\.project.module/)
+      assert.fileContent('app/assets/javascripts/module/models/name_model.js', /factory\('NameModel/)
     })
   })
 })

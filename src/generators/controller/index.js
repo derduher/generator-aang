@@ -5,7 +5,7 @@ export default class Controller extends Aang {
   constructor (args, options) {
     super(args, options)
 
-    this._normalizeName('Controller')
+    this.suffix = 'Controller'
   }
 
   prompting (...args) {

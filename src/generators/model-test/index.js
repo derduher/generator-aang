@@ -5,7 +5,7 @@ export default class ModelTest extends Aang {
   constructor (...args) {
     super(...args)
 
-    this._normalizeName('Model')
+    this.suffix = 'Model'
   }
 
   prompting (...args) {

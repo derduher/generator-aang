@@ -14,7 +14,6 @@ describe('Aang:lib/aang', function () {
     runContext = helpers.run(path.join(__dirname, '../lib/aang'))
       .inTmpDir(function (dir) {
         fs.copySync(path.join(__dirname, '../templates/common'), dir)
-        // console.log(dir)
       })
       .withArguments('name')
       .withPrompts({module: 'com.project'})
@@ -82,12 +81,6 @@ describe('Aang:lib/aang', function () {
       generator.name = 'Bar'
       generator._normalizeName('Foo', true)
       assert.equal(generator.fileName, 'bar-foo')
-    })
-
-    it('uses the same casing as the name by default', function () {
-      generator.name = 'Bar'
-      generator._normalizeName('Foo', true)
-      assert.equal(generator.fileName, 'barFoo')
     })
   })
 

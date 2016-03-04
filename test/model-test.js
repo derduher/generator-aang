@@ -20,13 +20,13 @@ describe('Aang:generators/model-test', function () {
 
     it('creates the model in the base module location', function () {
       assert.file([
-        'spec/js/models/NameModel.spec.js'
+        'spec/js/models/name_model.spec.js'
       ])
     })
 
     it('has file name, module filled out', function () {
-      assert.fileContent('spec/js/models/NameModel.spec.js', /angular\.mock\.module\('com\.project/)
-      assert.fileContent('spec/js/models/NameModel.spec.js', /NameModel/)
+      assert.fileContent('spec/js/models/name_model.spec.js', /angular\.mock\.module\('com\.project/)
+      assert.fileContent('spec/js/models/name_model.spec.js', /NameModel/)
     })
   })
   describe('yo fs \'name model\' --module com.project.module', function () {
@@ -34,7 +34,6 @@ describe('Aang:generators/model-test', function () {
       helpers.run(path.join(__dirname, '../generators/model-test'))
       .inTmpDir(function (dir) {
         fs.copySync(path.join(__dirname, '../templates/common'), dir)
-        console.log(dir)
       })
       .withArguments('NameModel')
       .withOptions({ module: 'com.project.module' })
@@ -43,12 +42,12 @@ describe('Aang:generators/model-test', function () {
 
     it('creates the file in a subfolder of the root', function () {
       assert.file([
-        'spec/js/module/models/NameModel.spec.js'
+        'spec/js/module/models/Name_Model.spec.js'
       ])
     })
 
     it('has module name filled out', function () {
-      assert.fileContent('spec/js/module/models/NameModel.spec.js', /angular\.mock\.module\('com\.project.module/)
+      assert.fileContent('spec/js/module/models/Name_Model.spec.js', /angular\.mock\.module\('com\.project.module/)
     })
   })
 })

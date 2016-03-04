@@ -24,13 +24,13 @@ describe('Aang:generators/controller', function () {
 
     it('creates the controller in the base module location', function () {
       assert.file([
-        'app/assets/javascripts/controllers/NameController.js'
+        'app/assets/javascripts/controllers/name_controller.js'
       ])
     })
 
     it('has file name, module filled out', function () {
-      assert.fileContent('app/assets/javascripts/controllers/NameController.js', /angular\.module\('com\.project/)
-      assert.fileContent('app/assets/javascripts/controllers/NameController.js', /controller\('NameController/)
+      assert.fileContent('app/assets/javascripts/controllers/name_controller.js', /angular\.module\('com\.project/)
+      assert.fileContent('app/assets/javascripts/controllers/name_controller.js', /controller\('NameController/)
     })
   })
 
@@ -39,7 +39,6 @@ describe('Aang:generators/controller', function () {
       helpers.run(path.join(__dirname, '../generators/controller'))
       .inTmpDir(function (dir) {
         fs.copySync(path.join(__dirname, '../templates/common'), dir)
-        console.log(dir)
       })
       .withGenerators(deps)
       .withArguments('NameController')
@@ -49,13 +48,13 @@ describe('Aang:generators/controller', function () {
 
     it('creates the file in a subfolder of the root', function () {
       assert.file([
-        'app/assets/javascripts/module/controllers/NameController.foobar'
+        'app/assets/javascripts/module/controllers/name_controller.foobar'
       ])
     })
 
     it('has file name, module filled out', function () {
-      assert.fileContent('app/assets/javascripts/module/controllers/NameController.foobar', /angular\.module\('com\.project.module/)
-      assert.fileContent('app/assets/javascripts/module/controllers/NameController.foobar', /controller\('NameController/)
+      assert.fileContent('app/assets/javascripts/module/controllers/name_controller.foobar', /angular\.module\('com\.project.module/)
+      assert.fileContent('app/assets/javascripts/module/controllers/name_controller.foobar', /controller\('NameController/)
     })
   })
 })
