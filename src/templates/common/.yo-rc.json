@@ -1,0 +1,11 @@
+{
+  "generator-aang": {
+    "rootModule": "com.project",
+    "rootModulePath": "app/assets/javascripts",
+    "rootTestPath": "spec/js",
+    "fileCase": "snakeCase",
+    "sourceExtension": "js",
+    "unitExtension": "spec.js",
+    "e2eExtension": "spec.js"
+  }
+}
