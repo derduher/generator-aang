@@ -42,12 +42,12 @@ describe('Aang:generators/model-test', function () {
 
     it('creates the file in a subfolder of the root', function () {
       assert.file([
-        'spec/js/module/models/Name_Model.spec.js'
+        'spec/js/module/models/name_model.spec.js'
       ])
     })
 
     it('has module name filled out', function () {
-      assert.fileContent('spec/js/module/models/Name_Model.spec.js', /angular\.mock\.module\('com\.project.module/)
+      assert.fileContent('spec/js/module/models/name_model.spec.js', /angular\.mock\.module\('com\.project.module/)
     })
   })
 })
