@@ -153,9 +153,27 @@ export default class Aang extends NamedBase {
         store: true
       },
       {
-        type: 'input',
+        type: 'list',
+        choices: [
+          {
+            name: 'camelCase',
+            value: 'camelCase'
+          },
+          {
+            name: 'PascalCase',
+            value: 'pascalCase'
+          },
+          {
+            name: 'snake_case',
+            value: 'snakeCase'
+          },
+          {
+            name: 'param-case',
+            value: 'paramCase'
+          }
+        ],
         name: 'fileCase',
-        message: 'what casing would you like your files (camelCase (default), pascalCase, snakeCase, paramCase)',
+        message: 'What casing would you like your files',
         store: true
       },
       {
@@ -205,7 +223,7 @@ export default class Aang extends NamedBase {
         return this.promptWithPromise({
           type: 'input',
           name: 'module',
-          message: 'module you would like to install this under',
+          message: 'What module should the *this* file be under?',
           store: true
         }).then(answers => {
           this.options.module = answers.module
