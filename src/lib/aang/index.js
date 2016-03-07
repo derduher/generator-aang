@@ -3,14 +3,10 @@ const changeCase = require('change-case')
 import { NamedBase } from 'yeoman-generator'
 
 export default class Aang extends NamedBase {
-  _normalizeName (suffix, instance) {
+  _normalizeName (suffix, casing) {
     var origArg = this.name
 
-    if (instance) {
-      this.name = this._toInstanceCase(this.name)
-    } else {
-      this.name = this._toClassCase(this.name)
-    }
+    this.name = this._toCase(this.name, casing || 'pascal')
 
     this.name = this._ensureSuffix(this.name, suffix)
 
@@ -24,11 +20,8 @@ export default class Aang extends NamedBase {
       this.log('Coerced to ' + this.name + '.')
     }
   }
-  _toClassCase (name) {
-    return changeCase.pascalCase(changeCase.sentenceCase(name))
-  }
-  _toInstanceCase (word) {
-    return changeCase.camelCase(changeCase.sentenceCase(word))
+  _toCase (name, casing) {
+    return changeCase[casing + 'Case'](changeCase.sentenceCase(name))
   }
   _ensureSuffix (word, suffix) {
     let suffixPos = word.lastIndexOf(suffix)
@@ -60,19 +53,29 @@ export default class Aang extends NamedBase {
     }
   }
 
-  _createSrc (src, path) {
+  _createSrc (src, path, params) {
+    const tmplParams = Object.assign({}, params, {
+      moduleName: this.options.module,
+      name: this.name
+    })
+
     this.fs.copyTpl(
       this.templatePath(src),
       this.destinationPath(`${this.options.modulePath}${path}/${this.fileName}.${this.options.sourceExtension}`),
-      {moduleName: this.options.module, name: this.name}
+      tmplParams
     )
   }
 
-  _createTest (test, path) {
+  _createTest (test, path, params) {
+    const tmplParams = Object.assign({}, params, {
+      moduleName: this.options.module,
+      name: this.name
+    })
+
     this.fs.copyTpl(
       this.templatePath(test),
       this.destinationPath(`${this.options.testPath}${path}/${this.fileName}.${this.options.unitExtension}`),
-      {moduleName: this.options.module, name: this.name}
+      tmplParams
     )
   }
 
@@ -126,7 +129,7 @@ export default class Aang extends NamedBase {
     })
 
     this.option('fileCase', {
-      desc: 'override to package default extension for e2e tests',
+      desc: 'the case the file should be in',
       type: String
     })
   }
@@ -230,7 +233,7 @@ export default class Aang extends NamedBase {
         })
       }
     }).then(() => {
-      this._normalizeName(this.suffix)
+      this._normalizeName(this.suffix, this.case)
       this._setModulePath()
       done()
     })
