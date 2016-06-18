@@ -72,51 +72,42 @@ describe('Aang:lib/aang', function () {
 
     it('Instance cases generator.name when passed true as its second arg', function () {
       generator.name = 'Bar'
-      generator._normalizeName('Foo', true)
+      generator._normalizeName('Foo', 'camel')
       assert.equal(generator.name, 'barFoo')
     })
 
     it('transforms the file name if asked', function () {
       generator.options.fileCase = 'paramCase'
       generator.name = 'Bar'
-      generator._normalizeName('Foo', true)
+      generator._normalizeName('Foo', 'camel')
       assert.equal(generator.fileName, 'bar-foo')
     })
   })
 
-  describe('_toClassCase', function () {
-    it('does nothing if already in class case', function () {
-      assert.equal(generator._toClassCase('ClassCase'), 'ClassCase')
+  describe('_toCase', function () {
+    it('does nothing if already in case', function () {
+      assert.equal(generator._toCase('ClassCase', 'pascal'), 'ClassCase')
+      assert.equal(generator._toCase('classCase', 'camel'), 'classCase')
+      assert.equal(generator._toCase('class_case', 'snake'), 'class_case')
+      assert.equal(generator._toCase('class-case', 'param'), 'class-case')
     })
 
     it('converts instanceCase', function () {
-      assert.equal(generator._toClassCase('classCase'), 'ClassCase')
+      assert.equal(generator._toCase('classCase', 'pascal'), 'ClassCase')
+      assert.equal(generator._toCase('classCase', 'param'), 'class-case')
+      assert.equal(generator._toCase('classCase', 'snake'), 'class_case')
     })
 
     it('converts hyphenated', function () {
-      assert.equal(generator._toClassCase('class-case'), 'ClassCase')
+      assert.equal(generator._toCase('class-case', 'pascal'), 'ClassCase')
+      assert.equal(generator._toCase('class-case', 'camel'), 'classCase')
+      assert.equal(generator._toCase('class-case', 'snake'), 'class_case')
     })
 
     it('converts underscored', function () {
-      assert.equal(generator._toClassCase('class_case'), 'ClassCase')
-    })
-  })
-
-  describe('_toInstanceCase', function () {
-    it('does nothing when already in instance case', function () {
-      assert.equal(generator._toInstanceCase('instanceCase'), 'instanceCase')
-    })
-
-    it('converts class case', function () {
-      assert.equal(generator._toInstanceCase('InstanceCase'), 'instanceCase')
-    })
-
-    it('converts hyphenated case', function () {
-      assert.equal(generator._toInstanceCase('instance-Case'), 'instanceCase')
-    })
-
-    it('converts snake case', function () {
-      assert.equal(generator._toInstanceCase('instance_case'), 'instanceCase')
+      assert.equal(generator._toCase('class_case', 'pascal'), 'ClassCase')
+      assert.equal(generator._toCase('class_case', 'camel'), 'classCase')
+      assert.equal(generator._toCase('class_case', 'param'), 'class-case')
     })
   })
 

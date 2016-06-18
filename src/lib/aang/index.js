@@ -20,9 +20,11 @@ export default class Aang extends NamedBase {
       this.log('Coerced to ' + this.name + '.')
     }
   }
+
   _toCase (name, casing) {
     return changeCase[casing + 'Case'](changeCase.sentenceCase(name))
   }
+
   _ensureSuffix (word, suffix) {
     let suffixPos = word.lastIndexOf(suffix)
     if (suffixPos === -1 || suffixPos !== word.length - suffix.length) {
@@ -30,6 +32,7 @@ export default class Aang extends NamedBase {
     }
     return word
   }
+
   _setModulePath () {
     if (!this.options.modulePath) {
       var deRooted
