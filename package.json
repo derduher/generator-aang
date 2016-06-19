@@ -10,6 +10,9 @@
     "email": "",
     "url": "https://github.com/derduher"
   },
+  "engines": {
+    "node": "5.x"
+  },
   "scripts": {
     "test": "mocha",
     "build": "babel -x .js -D -d ./ src/ && cp -R src/templates ./",
