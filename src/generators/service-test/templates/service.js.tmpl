@@ -1,0 +1,18 @@
+'use strict'
+
+describe('Service <%= name %>', function () {
+  beforeEach(angular.mock.module('<%= moduleName %>'))
+
+  beforeEach(inject(($injector) => {
+    this.service = $injector.get('<%= name %>')<%
+    if (Factory) { %>
+    this.Factory = $injector.get('<%= Factory %>')<%
+    } %>
+  }))<%
+  if (Factory) { %>
+
+  it('is an instance of <%= Factory %>', () => {
+    expect(this.service instanceof this.Factory).toBeTruthy()
+  })<%
+  } %>
+})

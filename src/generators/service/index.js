@@ -37,6 +37,6 @@ export default class Service extends Aang {
   writing () {
     this._createSrc('service.es6', 'services', {Factory: this.options.factoryName})
 
-    // this.composeWith('aang:service-test', this)
+    this.composeWith('aang:service-test', this)
   }
 }
