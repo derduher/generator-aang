@@ -2,8 +2,8 @@
 
 var path = require('path')
 var fs = require('fs-extra')
-var assert = require('yeoman-generator').assert
-var helpers = require('yeoman-generator').test
+var assert = require('yeoman-assert')
+var helpers = require('yeoman-test')
 
 describe('Aang:generators/controller-test', function () {
   describe('things', function () {

@@ -1,8 +1,8 @@
 'use strict'
 const changeCase = require('change-case')
-import { NamedBase } from 'yeoman-generator'
+import { Base } from 'yeoman-generator'
 
-export default class Aang extends NamedBase {
+export default class Aang extends Base {
   _normalizeName (suffix, casing) {
     var origArg = this.name
 
@@ -35,7 +35,7 @@ export default class Aang extends NamedBase {
 
   _setModulePath () {
     if (!this.options.modulePath) {
-      var deRooted
+      var deRooted = this.options.module
       if (this.options.module.indexOf(this.options.rootModule) === 0) {
         deRooted = this.options.module.slice(this.options.rootModule.length)
         if (deRooted.indexOf('.') === 0) {
@@ -84,6 +84,7 @@ export default class Aang extends NamedBase {
 
   constructor (args, options) {
     super(args, options)
+    this.argument('name', { type: String, required: true })
 
     this.option('module', {
       desc: 'angular module name. Will be used for folder too.',
@@ -138,7 +139,6 @@ export default class Aang extends NamedBase {
   }
 
   prompting () {
-    const done = this.async()
     let prompts = [
       {
         type: 'input',
@@ -214,7 +214,7 @@ export default class Aang extends NamedBase {
 
     let p
     if (prompts.length) {
-      p = this.promptWithPromise(prompts).then(answers => {
+      p = this.prompt(prompts).then(answers => {
         for (let opt in answers) {
           this.options[opt] = answers[opt]
         }
@@ -224,9 +224,9 @@ export default class Aang extends NamedBase {
       p = Promise.resolve()
     }
 
-    p.then(() => {
+    return p.then(() => {
       if (!this.options.module) {
-        return this.promptWithPromise({
+        return this.prompt({
           type: 'input',
           name: 'module',
           message: 'What module should the *this* file be under?',
@@ -238,15 +238,6 @@ export default class Aang extends NamedBase {
     }).then(() => {
       this._normalizeName(this.suffix, this.case)
       this._setModulePath()
-      done()
-    })
-  }
-
-  promptWithPromise (prompts) {
-    return new Promise(resolve => {
-      this.prompt(prompts, answers => {
-        resolve(answers)
-      })
     })
   }
 }
