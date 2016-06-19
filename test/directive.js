@@ -5,7 +5,8 @@ var fs = require('fs-extra')
 var assert = require('yeoman-assert')
 var helpers = require('yeoman-test')
 var deps = [
-  [helpers.createDummyGenerator(), 'aang:directive-test']
+  [helpers.createDummyGenerator(), 'aang:directive-test'],
+  [helpers.createDummyGenerator(), 'aang:controller']
 ]
 
 describe('Aang:generators/directive', function () {
@@ -62,7 +63,7 @@ describe('Aang:generators/directive', function () {
     })
   })
 
-  /*describe('yo aang:directive \'name\' --module com.project.module --controller', function () {
+  describe('yo aang:directive \'name\' --module com.project.module --controller', function () {
     before(function (done) {
       helpers.run(path.join(__dirname, '../generators/directive'))
         .inTmpDir(function (dir) {
@@ -75,8 +76,10 @@ describe('Aang:generators/directive', function () {
         .on('end', done)
     })
 
-    it('has an instance of a Factory', function () {
-      assert.fileContent('app/assets/javascripts/module/directives/name_directive.js', /new\sFact\(/)
+    // no idea how to test that the controller is named properly
+    it('attaches a controller if requested', function () {
+      var path = 'app/assets/javascripts/module/directives/name.js'
+      assert.fileContent(path, /controller: '/)
     })
-  })*/
+  })
 })

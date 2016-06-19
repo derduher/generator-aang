@@ -9,7 +9,7 @@ export default class Aang extends Base {
 
     this.name = this._toCase(this.name, casing || 'pascal')
 
-    this.name = this._ensureSuffix(this.name, suffix)
+    this.options.name = this.name = this._ensureSuffix(this.name, suffix)
 
     if (this.options.fileCase !== 'name' && changeCase[this.options.fileCase]) {
       this.fileName = changeCase[this.options.fileCase](this.name)

@@ -27,12 +27,11 @@ export default class Directive extends Aang {
         this.options.controller = controller
       })
     }).then(() => {
-      /* if (this.options.controller) {
+      if (this.options.controller) {
         this.controllerOptions = {}
-        const controllerArgs = []
-        Object.assign(options, this.options)
-        this.composeWith('aang:controller', {options: options, args: this.args})
-      } */
+        Object.assign(this.controllerOptions, this.options)
+        this.composeWith('aang:controller', {options: this.controllerOptions, args: this.args})
+      }
     })
   }
 
@@ -43,9 +42,15 @@ export default class Directive extends Aang {
       tmplPath += '/templates/'
     }
 
-    this._createSrc('directive.es6', 'directives', {
+    const directiveParams = {
       tmplPath: `${tmplPath}${this.fileName}.html`
-    })
+    }
+
+    if (this.options.controller) {
+      directiveParams.controller = this.controllerOptions.name
+    }
+
+    this._createSrc('directive.es6', 'directives', directiveParams)
 
     this.composeWith('aang:directive-test', this)
   }

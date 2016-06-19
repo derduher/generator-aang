@@ -6,13 +6,12 @@ angular.module('<%= moduleName %>').directive('<%= name %>', [
     return {
       restrict: 'E',
       replace: true,
-      // root, root/templates
-      templateUrl: '<%= tmplPath %>',
-      // Ctonroller
-      controller: 'PlaylistController',
+      templateUrl: '<%= tmplPath %>',<%
+      if (controller) { %>
+      controller: '<%= controller %>',
       controllerAs: 'ctrl',
-      bindToController: true,
-      // Controller
+      bindToController: true,<%
+      } %>
       scope: true,
       link: function (scope, el, attrs, ctrl) {
       }
