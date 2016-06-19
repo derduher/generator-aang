@@ -10,7 +10,7 @@ export default class Model extends Aang {
   }
 
   prompting (...ang) {
-    super.prompting(...ang)
+    return super.prompting(...ang)
   }
 
   writing () {

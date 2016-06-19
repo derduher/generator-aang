@@ -1,16 +1,13 @@
+/* eslint-disable no-return-assign */
 'use strict'
 const changeCase = require('change-case')
-import { NamedBase } from 'yeoman-generator'
+import { Base } from 'yeoman-generator'
 
-export default class Aang extends NamedBase {
-  _normalizeName (suffix, instance) {
+export default class Aang extends Base {
+  _normalizeName (suffix, casing) {
     var origArg = this.name
 
-    if (instance) {
-      this.name = this._toInstanceCase(this.name)
-    } else {
-      this.name = this._toClassCase(this.name)
-    }
+    this.name = this._toCase(this.name, casing || 'pascal')
 
     this.name = this._ensureSuffix(this.name, suffix)
 
@@ -24,12 +21,11 @@ export default class Aang extends NamedBase {
       this.log('Coerced to ' + this.name + '.')
     }
   }
-  _toClassCase (name) {
-    return changeCase.pascalCase(changeCase.sentenceCase(name))
+
+  _toCase (name, casing) {
+    return changeCase[casing + 'Case'](changeCase.sentenceCase(name))
   }
-  _toInstanceCase (word) {
-    return changeCase.camelCase(changeCase.sentenceCase(word))
-  }
+
   _ensureSuffix (word, suffix) {
     let suffixPos = word.lastIndexOf(suffix)
     if (suffixPos === -1 || suffixPos !== word.length - suffix.length) {
@@ -37,9 +33,10 @@ export default class Aang extends NamedBase {
     }
     return word
   }
+
   _setModulePath () {
     if (!this.options.modulePath) {
-      var deRooted
+      var deRooted = this.options.module
       if (this.options.module.indexOf(this.options.rootModule) === 0) {
         deRooted = this.options.module.slice(this.options.rootModule.length)
         if (deRooted.indexOf('.') === 0) {
@@ -60,24 +57,35 @@ export default class Aang extends NamedBase {
     }
   }
 
-  _createSrc (src, path) {
+  _createSrc (src, path, params) {
+    const tmplParams = Object.assign({}, params, {
+      moduleName: this.options.module,
+      name: this.name
+    })
+
     this.fs.copyTpl(
       this.templatePath(src),
       this.destinationPath(`${this.options.modulePath}${path}/${this.fileName}.${this.options.sourceExtension}`),
-      {moduleName: this.options.module, name: this.name}
+      tmplParams
     )
   }
 
-  _createTest (test, path) {
+  _createTest (test, path, params) {
+    const tmplParams = Object.assign({}, params, {
+      moduleName: this.options.module,
+      name: this.name
+    })
+
     this.fs.copyTpl(
       this.templatePath(test),
       this.destinationPath(`${this.options.testPath}${path}/${this.fileName}.${this.options.unitExtension}`),
-      {moduleName: this.options.module, name: this.name}
+      tmplParams
     )
   }
 
   constructor (args, options) {
     super(args, options)
+    this.argument('name', { type: String, required: true })
 
     this.option('module', {
       desc: 'angular module name. Will be used for folder too.',
@@ -126,13 +134,12 @@ export default class Aang extends NamedBase {
     })
 
     this.option('fileCase', {
-      desc: 'override to package default extension for e2e tests',
+      desc: 'the case the file should be in',
       type: String
     })
   }
 
   prompting () {
-    const done = this.async()
     let prompts = [
       {
         type: 'input',
@@ -208,7 +215,7 @@ export default class Aang extends NamedBase {
 
     let p
     if (prompts.length) {
-      p = this.promptWithPromise(prompts).then(answers => {
+      p = this.prompt(prompts).then(answers => {
         for (let opt in answers) {
           this.options[opt] = answers[opt]
         }
@@ -218,29 +225,17 @@ export default class Aang extends NamedBase {
       p = Promise.resolve()
     }
 
-    p.then(() => {
-      if (!this.options.module) {
-        return this.promptWithPromise({
-          type: 'input',
-          name: 'module',
-          message: 'What module should the *this* file be under?',
-          store: true
-        }).then(answers => {
-          this.options.module = answers.module
-        })
-      }
+    return p.then(() => {
+      return this.prompt({
+        type: 'input',
+        when: !this.options.module,
+        name: 'module',
+        message: 'What module should the *this* file be under?',
+        store: true
+      }).then(({module = this.options.module}) => this.options.module = module)
     }).then(() => {
-      this._normalizeName(this.suffix)
+      this._normalizeName(this.suffix, this.case)
       this._setModulePath()
-      done()
-    })
-  }
-
-  promptWithPromise (prompts) {
-    return new Promise(resolve => {
-      this.prompt(prompts, answers => {
-        resolve(answers)
-      })
     })
   }
 }

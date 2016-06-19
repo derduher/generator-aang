@@ -9,7 +9,7 @@ export default class Controller extends Aang {
   }
 
   prompting (...args) {
-    super.prompting(...args)
+    return super.prompting(...args)
   }
 
   writing () {

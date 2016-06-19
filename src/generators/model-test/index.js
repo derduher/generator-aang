@@ -9,7 +9,7 @@ export default class ModelTest extends Aang {
   }
 
   prompting (...args) {
-    super.prompting(...args)
+    return super.prompting(...args)
   }
 
   writing () {

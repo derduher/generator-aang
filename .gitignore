@@ -2,3 +2,4 @@ node_modules/
 /generators/
 /lib/
 /templates/
+npm-debug.log
