@@ -25,7 +25,9 @@
     "generators/controller",
     "generators/controller-test",
     "generators/service",
-    "generators/service-test"
+    "generators/service-test",
+    "generators/directive",
+    "generators/directive-test"
   ],
   "keywords": [
     "yeoman-generator"
