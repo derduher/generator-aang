@@ -10,31 +10,26 @@ export default class Service extends Aang {
     this.suffix = 'Service'
     this.case = 'camel'
     this.option('factory', {
-      desc: 'instantiate a factory?'
+      desc: 'instantiate a factory?',
+      type: Boolean
     })
   }
 
   prompting (...ang) {
     return super.prompting(...ang).then(() => {
-      let p
-      if (this.options.factory === undefined) {
-        p = this.prompt({
-          type: 'confirm',
-          name: 'instantiate',
-          message: 'instantiate a factory?',
-          default: true
-        })
-      } else {
-        p = Promise.resolve({instantiate: this.options.factory})
-      }
-      return p.then(({instantiate}) => {
-        if (instantiate) {
-          return this.prompt({
-            type: 'input',
-            name: 'factoryName',
-            message: 'what is the name of the factory?'
-          }).then(({factoryName}) => this.options.factoryName = factoryName)
-        }
+      return this.prompt({
+        type: 'confirm',
+        when: this.options.factory === undefined,
+        name: 'instantiate',
+        message: 'instantiate a factory?',
+        default: true
+      }).then(({instantiate = this.options.factory}) => {
+        return this.prompt({
+          when: instantiate,
+          type: 'input',
+          name: 'factoryName',
+          message: 'what is the name of the factory?'
+        }).then(({factoryName = instantiate}) => this.options.factoryName = factoryName)
       })
     })
   }

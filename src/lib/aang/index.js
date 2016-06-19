@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 'use strict'
 const changeCase = require('change-case')
 import { Base } from 'yeoman-generator'
@@ -225,16 +226,13 @@ export default class Aang extends Base {
     }
 
     return p.then(() => {
-      if (!this.options.module) {
-        return this.prompt({
-          type: 'input',
-          name: 'module',
-          message: 'What module should the *this* file be under?',
-          store: true
-        }).then(answers => {
-          this.options.module = answers.module
-        })
-      }
+      return this.prompt({
+        type: 'input',
+        when: !this.options.module,
+        name: 'module',
+        message: 'What module should the *this* file be under?',
+        store: true
+      }).then(({module = this.options.module}) => this.options.module = module)
     }).then(() => {
       this._normalizeName(this.suffix, this.case)
       this._setModulePath()
