@@ -9,7 +9,7 @@ export default class Aang extends Base {
 
     this.name = this._toCase(this.name, casing || 'pascal')
 
-    this.name = this._ensureSuffix(this.name, suffix)
+    this.options.name = this.name = this._ensureSuffix(this.name, suffix)
 
     if (this.options.fileCase !== 'name' && changeCase[this.options.fileCase]) {
       this.fileName = changeCase[this.options.fileCase](this.name)
@@ -34,6 +34,9 @@ export default class Aang extends Base {
     return word
   }
 
+  //
+  // "rootModule": "com.project",
+  // "rootModulePath": "app/assets/javascripts",
   _setModulePath () {
     if (!this.options.modulePath) {
       var deRooted = this.options.module
@@ -43,9 +46,10 @@ export default class Aang extends Base {
           deRooted = deRooted.slice(1)
         }
       }
+      this.options.relativePath = deRooted.replace(/\./g, '/')
 
-      this.options.modulePath = this.options.rootModulePath + '/' + deRooted.replace(/\./g, '/')
-      this.options.testPath = this.options.rootTestPath + '/' + deRooted.replace(/\./g, '/')
+      this.options.modulePath = this.options.rootModulePath + '/' + this.options.relativePath
+      this.options.testPath = this.options.rootTestPath + '/' + this.options.relativePath
     }
 
     if (this.options.modulePath[this.options.modulePath.length - 1] !== '/') {

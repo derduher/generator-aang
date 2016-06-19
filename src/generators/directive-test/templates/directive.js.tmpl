@@ -1,0 +1,21 @@
+'use strict'
+
+describe('Directive: <%= name %>', function () {
+  beforeEach(angular.mock.module('<%= moduleName %>'))
+  beforeEach(inject($injector => {
+    this.$window = $injector.get('$window')
+    this.$compile = $injector.get('$compile')
+    this.scope = $injector.get('$rootScope').$new()
+  }))
+
+  describe('structure', () => {
+    beforeEach(() => {
+      this.element = this.$compile(`<<%= name %>
+                              />`)(this.scope)
+      this.scope.$apply()
+    })
+
+    it('behaves in a certain way', () => {
+    })
+  })
+})

@@ -6,7 +6,11 @@ describe('<%= name %>', function () {
     this.$controller = $injector.get('$controller')
     this.controller = this.$controller(
       '<%= name %>',
-      {'$scope': {}},
+      {
+        '$scope': {}
+        // you can mock an injection here
+        // , $window: MockWindow
+      },
       // for attaching properties normally bound by the directive bindToController
       {foo: 'foo', watching: 'bar'}
     )
