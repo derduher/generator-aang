@@ -27,7 +27,8 @@
     "generators/service",
     "generators/service-test",
     "generators/directive",
-    "generators/directive-test"
+    "generators/directive-test",
+    "lib/aang"
   ],
   "keywords": [
     "yeoman-generator"
