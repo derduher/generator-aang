@@ -1,7 +1,7 @@
 'use strict'
-import Aang from '../../lib/aang/index'
+const Aang = require('../../lib/aang/index')
 
-export default class ControllerTest extends Aang {
+module.exports = class ControllerTest extends Aang {
   constructor (...args) {
     super(...args)
 

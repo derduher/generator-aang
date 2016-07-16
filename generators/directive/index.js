@@ -1,9 +1,9 @@
 /* eslint-disable no-return-assign */
 'use strict'
 
-import Aang from '../../lib/aang/index'
+const Aang = require('../../lib/aang/index')
 
-export default class Directive extends Aang {
+module.exports = class Directive extends Aang {
   constructor (...args) {
     super(...args)
 
