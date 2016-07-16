@@ -14,8 +14,7 @@
     "node": "6.x"
   },
   "scripts": {
-    "test": "mocha",
-    "prepublish": "npm run build"
+    "test": "mocha"
   },
   "files": [
     "generators/app",
