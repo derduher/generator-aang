@@ -1,9 +1,7 @@
 /* eslint-disable no-return-assign */
-'use strict'
+const Aang = require('../../lib/aang/index')
 
-import Aang from '../../lib/aang/index'
-
-export default class Service extends Aang {
+module.exports = class Service extends Aang {
   constructor (...args) {
     super(...args)
 
